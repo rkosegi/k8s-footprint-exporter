@@ -1,0 +1,6 @@
+---
+metric1:
+  apiVersion: v1
+  kinds:
+    # not a valid DNS label
+    config maps: {}

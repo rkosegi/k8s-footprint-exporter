@@ -1,0 +1,7 @@
+---
+metric1:
+  apiVersion: v1
+  kinds:
+    configmaps:
+    secrets:
+      includeOnly: some-pattern.*

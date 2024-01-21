@@ -1,0 +1,8 @@
+---
+metric1:
+  apiVersion: v1
+  kinds:
+    configmaps:
+      # at least one of these must be true
+      size: false
+      count: false

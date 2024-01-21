@@ -1,0 +1,19 @@
+---
+metrics:
+  cluster_rbacs:
+    apiVersion: rbac.authorization.k8s.io/v1
+    kinds:
+      clusterroles:
+      clusterrolebindings:
+rbac:
+  clusterScoped:
+    enabled: true
+    rules:
+      - verbs:
+          - get
+          - list
+        apiGroups:
+          - rbac.authorization.k8s.io
+        resources:
+          - clusterroles
+          - clusterrolebindings
