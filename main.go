@@ -39,7 +39,7 @@ import (
 )
 
 const (
-	name = "k8s_footprint_exporter"
+	name = "k8sfootprint_exporter"
 )
 
 func main() {
