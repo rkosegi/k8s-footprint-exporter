@@ -7,6 +7,25 @@ It provides metrics about estimated size of API resources stored in etcd.
 Size is estimated based off size of object serialized into JSON byte slice.
 This might not be 100% accurate, but it's good enough for purpose of tracking size over time.
 
+## Installation
+
+### Using helm chart
+
+- prepare `my-values.yaml` with metrics definition, see examples bellow.
+- run `helm upgrade --install my-release ./chart --values my-values.yaml`
+- forward service port `kubectl port-forward service/k8sfootprint-exporter 8889:80`
+- check output `curl http://localhost:8889/metrics`
+
+## Building
+
+### Using docker
+
+- run `make build-docker` (requires docker and GNU Make)
+
+### Directly
+
+- run `make build-local` (requires Go SDK)
+
 ## Example metrics config
 
 ```yaml
