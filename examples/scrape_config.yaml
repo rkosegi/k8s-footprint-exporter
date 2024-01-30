@@ -1,0 +1,11 @@
+---
+metrics:
+  configs:
+    apiVersion: v1
+    kinds:
+      configmaps:
+serviceMonitor:
+  scrape_config:
+    - port: metrics  # keep this port name
+      interval: 5m   # how often to scrape
+      scrape_timeout: 30s # This might take some time, depending on number of resources and their size

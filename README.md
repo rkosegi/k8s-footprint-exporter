@@ -78,3 +78,4 @@ rbac:
 
  - [Cluster-wide RBAC](examples/cluster_rbac.yaml)
  - [ConfigMaps and Secrets](examples/configmaps_and_secrets.yaml)
+ - [Override default scrape config](examples/scrape_config.yaml)
