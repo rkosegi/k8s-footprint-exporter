@@ -34,16 +34,18 @@ USER ?= $(shell id -u -n)
 HOST ?= $(shell hostname)
 
 bump-patch-version:
-	@echo Current: $(VER_CURRENT)
+	@echo Current: $(VERSION)
 	@echo Next: $(VER_NEXT_PATCH)
 	@echo "$(VER_NEXT_PATCH)" > VERSION
 	sed -i 's/^appVersion: .*/appVersion: $(VER_NEXT_PATCH)/g' chart/Chart.yaml
 	sed -i 's/^version: .*/version: $(VER_NEXT_PATCH)/g' chart/Chart.yaml
-	git add -- Makefile chart/Chart.yaml
+	git add -- VERSION Makefile chart/Chart.yaml
 	git commit -sm "Bump version to $(VER_NEXT_PATCH)"
 
 git-tag:
 	git tag -am "Release $(VERSION)" $(VERSION)
+
+new-release: bump-patch-version git-tag
 
 update-go-deps:
 	@for m in $$(go list -mod=readonly -m -f '{{ if and (not .Indirect) (not .Main)}}{{.Path}}{{end}}' all); do \
@@ -68,10 +70,8 @@ build-local:
 build-docker:
 	$(DOCKER) build -t $(IMAGE):$(VERSION) \
 		--build-arg GOVERSION=$(GO_VERSION) \
-		--build-arg GOARCH=$(ARCH) \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
 		--build-arg BUILD_DATE=$(BUILD_DATE) \
 		.
-
 .PHONY: build-local build-docker clean lint test gen-docs update-go-deps bump-patch-version

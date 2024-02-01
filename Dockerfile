@@ -15,14 +15,13 @@
 ARG GOVERSION=1.21
 
 FROM golang:${GOVERSION} as builder
-ARG GOARCH
-ENV GOARCH=${GOARCH}
+
 WORKDIR /build
 COPY . /build
 
 RUN make build-local
 
-FROM gcr.io/distroless/static:latest-${GOARCH}
+FROM gcr.io/distroless/static:latest
 ARG VERSION
 ARG BUILD_DATE
 ARG GIT_COMMIT
