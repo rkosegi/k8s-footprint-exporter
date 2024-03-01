@@ -23,7 +23,7 @@ require (
 	github.com/prometheus/common v0.47.0
 	github.com/prometheus/exporter-toolkit v0.11.0
 	github.com/samber/lo v1.39.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/apimachinery v0.29.2
 	k8s.io/client-go v0.29.2
