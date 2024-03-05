@@ -15,9 +15,10 @@
 package internal
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
-	"testing"
 )
 
 var (

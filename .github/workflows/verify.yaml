@@ -13,7 +13,6 @@
 # limitations under the License.
 ---
 name: CI
-
 on:
   push:
     branches:
@@ -22,8 +21,6 @@ on:
     branches:
       - main
   workflow_dispatch:
-permissions:
-  contents: read
 
 jobs:
   build:
@@ -50,8 +47,8 @@ jobs:
       - uses: actions/setup-python@v5
       - uses: pre-commit/action@v3.0.1
 
-      - name: Build
+      - name: Go build
         run: go build -v ./...
 
-      - name: Test
+      - name: Go test
         run: go test -v ./...

@@ -15,12 +15,13 @@
 package main
 
 import (
-	"gopkg.in/yaml.v3"
-	"k8s.io/client-go/dynamic"
 	"net/http"
 	"os"
 	"strings"
 	"time"
+
+	"gopkg.in/yaml.v3"
+	"k8s.io/client-go/dynamic"
 
 	"github.com/alecthomas/kingpin/v2"
 	"github.com/go-kit/log/level"

@@ -37,15 +37,17 @@ bump-patch-version:
 	@echo Current: $(VERSION)
 	@echo Next: $(VER_NEXT_PATCH)
 	@echo "$(VER_NEXT_PATCH)" > VERSION
-	sed -i 's/^appVersion: .*/appVersion: $(VER_NEXT_PATCH)/g' chart/Chart.yaml
+	sed -i 's/^appVersion: .*/appVersion: v$(VER_NEXT_PATCH)/g' chart/Chart.yaml
 	sed -i 's/^version: .*/version: $(VER_NEXT_PATCH)/g' chart/Chart.yaml
-	git add -- VERSION Makefile chart/Chart.yaml
+	git add -- VERSION chart/Chart.yaml
 	git commit -sm "Bump version to $(VER_NEXT_PATCH)"
 
 git-tag:
-	git tag -am "Release $(VERSION)" $(VERSION)
+	git tag -am "Release v$(VERSION)" v$(VERSION)
 
-new-release: bump-patch-version git-tag
+new-release:
+	$(MAKE) bump-patch-version
+	$(MAKE) git-tag
 
 update-go-deps:
 	@for m in $$(go list -mod=readonly -m -f '{{ if and (not .Indirect) (not .Main)}}{{.Path}}{{end}}' all); do \
