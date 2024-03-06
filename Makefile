@@ -27,7 +27,6 @@ ARCH ?= $(shell go env GOARCH)
 BUILD_DATE = $(shell date -u +'%Y-%m-%dT%H:%M:%SZ')
 GIT_COMMIT ?= $(shell git rev-parse --short HEAD)
 PKG = github.com/prometheus/common
-GO_VERSION = 1.21.1
 OS ?= $(shell uname -s | tr A-Z a-z)
 IMAGE = $(REGISTRY)/k8s-footprint-exporter
 USER ?= $(shell id -u -n)
@@ -70,8 +69,7 @@ build-local:
 		-o exporter
 
 build-docker:
-	$(DOCKER) build -t $(IMAGE):$(VERSION) \
-		--build-arg GOVERSION=$(GO_VERSION) \
+	$(DOCKER) build -t $(IMAGE):v$(VERSION) \
 		--build-arg VERSION=$(VERSION) \
 		--build-arg GIT_COMMIT=$(GIT_COMMIT) \
 		--build-arg BUILD_DATE=$(BUILD_DATE) \

@@ -12,9 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-ARG GOVERSION=1.21
-
-FROM golang:${GOVERSION} as builder
+FROM golang:1.21 as builder
 
 WORKDIR /build
 COPY . /build
