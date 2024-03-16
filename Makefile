@@ -32,6 +32,8 @@ IMAGE = $(REGISTRY)/k8s-footprint-exporter
 USER ?= $(shell id -u -n)
 HOST ?= $(shell hostname)
 
+.DEFAULT_GOAL := build-local
+
 bump-patch-version:
 	@echo Current: $(VERSION)
 	@echo Next: $(VER_NEXT_PATCH)
