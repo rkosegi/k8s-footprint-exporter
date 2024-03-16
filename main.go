@@ -20,6 +20,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/prometheus/client_golang/prometheus/collectors/version"
+
 	"gopkg.in/yaml.v3"
 	"k8s.io/client-go/dynamic"
 
@@ -30,7 +32,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/prometheus/common/promlog"
 	"github.com/prometheus/common/promlog/flag"
-	"github.com/prometheus/common/version"
+	pv "github.com/prometheus/common/version"
 	"github.com/prometheus/exporter-toolkit/web"
 	"github.com/prometheus/exporter-toolkit/web/kingpinflag"
 	"github.com/rkosegi/k8s-footprint-exporter/internal"
@@ -67,13 +69,13 @@ func main() {
 	promlogConfig := &promlog.Config{}
 	flag.AddFlags(kingpin.CommandLine, promlogConfig)
 
-	kingpin.Version(version.Print(name))
+	kingpin.Version(pv.Print(name))
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
 	logger := promlog.New(promlogConfig)
 
-	level.Info(logger).Log("msg", "Starting "+name, "version", version.Info())
-	level.Info(logger).Log("msg", "Build context", "build_context", version.BuildContext())
+	level.Info(logger).Log("msg", "Starting "+name, "version", pv.Info())
+	level.Info(logger).Log("msg", "Build context", "build_context", pv.BuildContext())
 	level.Info(logger).Log("msg", "Loading metrics definition from file", "file", metricsFile)
 
 	var cfg internal.MetricConfig
@@ -137,7 +139,7 @@ func main() {
 	landingPage, err := web.NewLandingPage(web.LandingConfig{
 		Name:        strings.ReplaceAll(name, "_", " "),
 		Description: "Prometheus Exporter for k8s API resources footprint",
-		Version:     version.Info(),
+		Version:     pv.Info(),
 		Links: []web.LandingLinks{
 			{
 				Address: *telemetryPath,
