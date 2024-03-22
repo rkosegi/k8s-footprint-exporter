@@ -37,7 +37,7 @@ LABEL org.opencontainers.image.url="https://github.com/rkosegi/k8s-footprint-exp
       org.opencontainers.image.version="${VERSION}"
 
 USER nobody
-
+WORKDIR /
 ENTRYPOINT ["/exporter"]
 
 EXPOSE 9998
