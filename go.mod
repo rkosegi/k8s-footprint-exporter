@@ -21,7 +21,7 @@ toolchain go1.22.2
 require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/go-kit/log v0.2.1
-	github.com/prometheus/client_golang v1.20.2
+	github.com/prometheus/client_golang v1.20.3
 	github.com/prometheus/common v0.58.0
 	github.com/prometheus/exporter-toolkit v0.12.0
 	github.com/samber/lo v1.47.0
