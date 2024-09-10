@@ -18,7 +18,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -54,7 +53,7 @@ func (c *collector) scrape(ch chan<- prometheus.Metric) {
 		for kind, ms := range rs.Kinds {
 			err := c.ensureSchema(rs.APIVersion, kind, ms)
 			if err != nil {
-				level.Warn(c.opts.Log).Log("msg", "Can't resolve schema, maybe some CRDs are missing?",
+				c.opts.Log.Warn("Can't resolve schema, maybe some CRDs are missing?",
 					"apiVersion", rs.APIVersion, "kind", kind, "err", err)
 				errCnt++
 				continue
@@ -62,13 +61,13 @@ func (c *collector) scrape(ch chan<- prometheus.Metric) {
 
 			items, err := c.fetchList(ms.Schema, *ms.GV, kind)
 			if err != nil {
-				level.Warn(c.opts.Log).Log("msg", "Failed to list resources", "gv", ms.GV.String(), "err", err)
+				c.opts.Log.Warn("Failed to list resources", "gv", ms.GV.String(), "err", err)
 				errCnt++
 				continue
 			}
 			err = c.appendMetric(rsname, items, ms, size, count, ms.GV.String(), kind)
 			if err != nil {
-				level.Warn(c.opts.Log).Log("msg", "Failed extract metric", "gv", ms.GV.String(), "err", err)
+				c.opts.Log.Warn("Failed extract metric", "gv", ms.GV.String(), "err", err)
 				errCnt++
 				continue
 			}

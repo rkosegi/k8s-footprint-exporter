@@ -16,11 +16,11 @@ package internal
 
 import (
 	"errors"
+	"log/slog"
 	"os"
 	"regexp"
 	"strings"
 
-	"github.com/go-kit/log"
 	"gopkg.in/yaml.v3"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -53,7 +53,7 @@ type CollectorOpts struct {
 	Namespace     string
 	DynamicClient *dynamic.DynamicClient
 	Client        *clientset.Clientset
-	Log           log.Logger
+	Log           *slog.Logger
 }
 
 type MetricSet struct {
