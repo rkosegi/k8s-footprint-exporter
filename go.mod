@@ -23,7 +23,7 @@ require (
 	github.com/go-kit/log v0.2.1
 	github.com/prometheus/client_golang v1.20.3
 	github.com/prometheus/common v0.59.1
-	github.com/prometheus/exporter-toolkit v0.12.0
+	github.com/prometheus/exporter-toolkit v0.13.0
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.9.0
 	gopkg.in/yaml.v3 v3.0.1
