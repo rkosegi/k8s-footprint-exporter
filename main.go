@@ -26,12 +26,11 @@ import (
 	"k8s.io/client-go/dynamic"
 
 	"github.com/alecthomas/kingpin/v2"
-	"github.com/go-kit/log/level"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/prometheus/common/promlog"
-	"github.com/prometheus/common/promlog/flag"
+	"github.com/prometheus/common/promslog"
+	"github.com/prometheus/common/promslog/flag"
 	pv "github.com/prometheus/common/version"
 	"github.com/prometheus/exporter-toolkit/web"
 	"github.com/prometheus/exporter-toolkit/web/kingpinflag"
@@ -66,46 +65,46 @@ func main() {
 		toolkitFlags = kingpinflag.AddFlags(kingpin.CommandLine, ":9998")
 	)
 
-	promlogConfig := &promlog.Config{}
+	promlogConfig := &promslog.Config{}
 	flag.AddFlags(kingpin.CommandLine, promlogConfig)
 
 	kingpin.Version(pv.Print(name))
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
-	logger := promlog.New(promlogConfig)
+	logger := promslog.New(promlogConfig)
 
-	level.Info(logger).Log("msg", "Starting "+name, "version", pv.Info())
-	level.Info(logger).Log("msg", "Build context", "build_context", pv.BuildContext())
-	level.Info(logger).Log("msg", "Loading metrics definition from file", "file", metricsFile)
+	logger.Info("Starting "+name, "version", pv.Info())
+	logger.Info("Build context", "build_context", pv.BuildContext())
+	logger.Info("Loading metrics definition from file", "file", metricsFile)
 
 	var cfg internal.MetricConfig
 
 	if err := cfg.LoadFrom(*metricsFile); err != nil {
-		level.Error(logger).Log("msg", "Couldn't load metrics config file", "err", err)
+		logger.Error("Couldn't load metrics config file", "err", err)
 		os.Exit(1)
 	}
 
 	restCfg, err := ctrl.GetConfig()
 	if err != nil {
-		level.Error(logger).Log("msg", "Couldn't get k8s client config", "err", err)
+		logger.Error("Couldn't get k8s client config", "err", err)
 		os.Exit(1)
 	}
 	dc, err := dynamic.NewForConfig(restCfg)
 	if err != nil {
-		level.Error(logger).Log("msg", "Couldn't get dynamic k8s client", "err", err)
+		logger.Error("Couldn't get dynamic k8s client", "err", err)
 		os.Exit(1)
 	}
 	c, err := clientset.NewForConfig(restCfg)
 	if err != nil {
-		level.Error(logger).Log("msg", "Couldn't get k8s client", "err", err)
+		logger.Error("Couldn't get k8s client", "err", err)
 		os.Exit(1)
 	}
 	vi, err := c.ServerVersion()
 	if err != nil {
-		level.Error(logger).Log("msg", "Couldn't ping API server", "err", err)
+		logger.Error("Couldn't ping API server", "err", err)
 		os.Exit(1)
 	}
-	level.Info(logger).Log("msg", "Got response from API server", "version", vi.GitVersion)
+	logger.Info("Got response from API server", "version", vi.GitVersion)
 
 	r := prometheus.NewRegistry()
 	r.MustRegister(version.NewCollector(name))
@@ -117,7 +116,7 @@ func main() {
 		Client:        c,
 		Log:           logger,
 	})); err != nil {
-		level.Error(logger).Log("msg", "Couldn't register "+name, "err", err)
+		logger.Error("Couldn't register "+name, "err", err)
 		os.Exit(1)
 	}
 
@@ -156,7 +155,7 @@ func main() {
 		},
 	})
 	if err != nil {
-		level.Error(logger).Log("msg", "Couldn't create landing page", "err", err)
+		logger.Error("Couldn't create landing page", "err", err)
 		os.Exit(1)
 	}
 
@@ -177,7 +176,7 @@ func main() {
 		ReadHeaderTimeout: 10 * time.Second,
 	}
 	if err := web.ListenAndServe(srv, toolkitFlags, logger); err != nil {
-		level.Error(logger).Log("msg", "Error starting server", "err", err)
+		logger.Error("Error starting server", "err", err)
 		os.Exit(1)
 	}
 }
