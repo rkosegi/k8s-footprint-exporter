@@ -14,9 +14,7 @@
 
 module github.com/rkosegi/k8s-footprint-exporter
 
-go 1.22.0
-
-toolchain go1.22.2
+go 1.23
 
 require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
