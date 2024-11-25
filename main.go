@@ -75,7 +75,7 @@ func main() {
 
 	logger.Info("Starting "+name, "version", pv.Info())
 	logger.Info("Build context", "build_context", pv.BuildContext())
-	logger.Info("Loading metrics definition from file", "file", metricsFile)
+	logger.Info("Loading metrics definition from file", "file", *metricsFile)
 
 	var cfg internal.MetricConfig
 
