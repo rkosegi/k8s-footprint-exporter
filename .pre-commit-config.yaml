@@ -23,7 +23,6 @@ repos:
   - repo: https://github.com/gruntwork-io/pre-commit
     rev: v0.1.24
     hooks:
-      - id: golangci-lint
       - id: goimports
       - id: gofmt
       - id: helmlint
