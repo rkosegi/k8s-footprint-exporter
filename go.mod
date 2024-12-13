@@ -19,7 +19,7 @@ require (
 	github.com/alecthomas/kingpin/v2 v2.4.0
 	github.com/prometheus/client_golang v1.20.5
 	github.com/prometheus/common v0.61.0
-	github.com/prometheus/exporter-toolkit v0.13.1
+	github.com/prometheus/exporter-toolkit v0.13.2
 	github.com/samber/lo v1.47.0
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -65,7 +65,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xhit/go-str2duration/v2 v2.1.0 // indirect
-	golang.org/x/crypto v0.30.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20230515195305-f3d0a9c9a5cc // indirect
 	golang.org/x/net v0.32.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
