@@ -26,7 +26,7 @@ require (
 	github.com/samber/lo v1.51.0
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v3 v3.0.1
-	k8s.io/apimachinery v0.33.1
+	k8s.io/apimachinery v0.33.2
 	k8s.io/client-go v0.33.1
 	sigs.k8s.io/controller-runtime v0.21.0
 )
